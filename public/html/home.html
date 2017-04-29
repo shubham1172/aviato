@@ -1,13 +1,13 @@
 <!-- index.html-->
 <html>
     <head>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <title>Aviato | Your partners at flying </title>     
         <!-- jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- my script -->
-        <script src="http://localhost:8082/ui/home.js"></script>
+        <script src="http://localhost:8082/public/?filePath=html/home.js"></script>
         <style>
         #map {
             height: 100%;
@@ -16,7 +16,11 @@
         </style>
     </head>
   <body>
-    <div id="map"></div>
+    <div id="container">
+        <button id = 'recentre'>RECENTRE</button>
+        <div id="map">
+        </div>
+    </div>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0-0hUk1RRzmSPKaQA4eFAbYoas0Lma3Q&libraries=places">
     </script>
