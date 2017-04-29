@@ -115,6 +115,7 @@ $(document).ready(function(){
         xhr.setRequestHeader("Content-Type","application/json");
         xhr.send();
     });
+
     getLocation(function(data){
         initMap(data, function(done){
             google.maps.event.addDomListener(map, 'click', changeLocation);

@@ -26,6 +26,7 @@ start_lat=12.9940947; start_lng = 80.1705791;
 curr_lat = start_lat; curr_lng = start_lng;
 end_lat = -1; end_lng = -1;
 speed = 0.05;
+
 // /select-city/?lat=xxx&lng=yyy
 app.get('/select-city', function(req, res){
     end_lat = Number(req.query.lat);
@@ -42,6 +43,7 @@ app.get('/get-location', function(req, res){
 
 //home
 app.get('/', function(req, res){
+
     res.sendFile(path.join(__dirname, '../public/html/', 'index.html'));
 });
 
@@ -76,3 +78,4 @@ setInterval(function(){
         }
     }
 }, 3000);
+
