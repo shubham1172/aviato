@@ -23,14 +23,14 @@ $(document).ready(function(){
         //var pyrmont = {lat: -33.867, lng: 151.195};
         map = new google.maps.Map(document.getElementById('map'), {
           center: pyrmont,
-          zoom: 15
+          zoom: 16
         });
         infowindow = new google.maps.InfoWindow();
         var service = new google.maps.places.PlacesService(map);
         service.nearbySearch({
           location: pyrmont,
-          radius: 500,
-          types: ['airport', 'hostpital', 'pharmacy']
+          radius: 1000,
+          types: ['airport', 'food', 'pharmacy']
         }, callback);
     }
 
