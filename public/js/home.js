@@ -40,7 +40,9 @@ $(document).ready(function(){
         service.nearbySearch({
           location: location,
           radius: 1000,
-          types: ['airport', 'food', 'pharmacy', 'cafe']
+          types: ['airport', 'amusement_park', 'bus_station', 'embassy', 'hindu_temple',
+                    'hospital', 'lodging', 'school', 'stadium', 'taxi_stand'
+                    ,'train_station', 'university', 'zoo', 'natural_feature', 'point_of_interest']
         }, callback);
         searchCall();
     }
@@ -87,7 +89,7 @@ $(document).ready(function(){
             google.maps.event.addDomListener(map, 'dragend', changeLocation);
             setInterval(function(){
                 if(flag==true){
-                    getLocation(function(data2){
+                    getLocation(function(data2){    
                         search(data2, function(){
                             map.setCenter(data2);
                         });
