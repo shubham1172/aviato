@@ -25,7 +25,7 @@ app.get('/get-cities', function(req, res){
 start_lat=12.9940947; start_lng = 80.1705791;
 curr_lat = start_lat; curr_lng = start_lng;
 end_lat = -1; end_lng = -1;
-speed = 0.05;
+speed = 0.005;
 
 // /select-city/?lat=xxx&lng=yyy
 app.get('/select-city', function(req, res){

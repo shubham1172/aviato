@@ -21,7 +21,8 @@ $(document).ready(function(){
     //global variables
     var map;
     var infowindow;
-    var flag = true;
+    var planeMarker;
+    var flag = false;
     //initializes map
     function initMap(location, initCall) {
         //var pyrmont = {lat: -33.867, lng: 151.195};
@@ -86,6 +87,7 @@ $(document).ready(function(){
     //onclick handler
     $('#city').click(function(){
         //dummy data
+        flag = true;
         end_lat = 22.652043; end_lng = 88.44633;
         start_lat = end_lat; start_lng = end_lng;
         var xhr = new XMLHttpRequest();
@@ -106,6 +108,29 @@ $(document).ready(function(){
                         strokeWeight: 2,
                     });
                     flightPath.setMap(map);
+                    var slope = (end_lng-start_lng)/(end_lat-start_lat);
+                    var angle = Math.atan(slope)*180/3.14;
+                    var image = 'http://localhost:8082/public/?filePath=images/p0CW.png';
+                    if(angle>22.5 && angle<=67.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p45CW.png';
+                    else if(angle>67.5 && angle<=112.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p90CW.png';
+                    else if(angle>112.5 && angle<=157.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p135CW.png';
+                    else if(angle>157.5 && angle<=202.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p180CW.png';
+                    else if(angle>202.5 && angle<=247.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p225CW.png';
+                    else if(angle>247.5 && angle<=292.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p270CW.png';
+                    else if(angle>292.5 && angle<=337.5)
+                        var image = 'http://localhost:8082/public/?filePath=images/p315CW.png';
+                    
+                    planeMarker = new google.maps.Marker({
+                        position: {lat: start_lat, lng: start_lng},
+                        map: map,
+                        icon: image
+                    });
                  }else{
                     console.log(xhr.responseText);
                 }
@@ -125,6 +150,7 @@ $(document).ready(function(){
                     getLocation(function(data2){    
                         search(data2, function(){
                             map.setCenter(data2);
+                            planeMarker.setPosition(data2);
                         });
                     });
                 }
