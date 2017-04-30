@@ -7,6 +7,7 @@
         <!-- jquery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- my scripts -->
+        <script src="http://localhost:8082/public/?filePath=js/script.js"></script>
         <script src="http://localhost:8082/public/?filePath=js/home.js"></script>
         <style>
         #map {
@@ -16,14 +17,22 @@
         </style>
     </head>
   <body>
+      
     <div id="container">
-        <button id = 'recentre'>RECENTRE</button>
-        <button id = 'city'>SELECT CITY</button>
         <div id="map">
         </div>
+        <div id="over_map">
+        <div id="cityList"></div>
+        <button id = 'recentre'>RECENTRE <i class="fa fa-map-marker" aria-hidden="true"></i></button>
+       
+        </div>
+        <div id="over_map_right">
+            <img src="http://localhost:8082/public/?filePath=images/aviato.png" height="80px" width="150px"><br>
+        </div>
+         <div id='info'></div>
     </div>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0-0hUk1RRzmSPKaQA4eFAbYoas0Lma3Q&libraries=places">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC937egy79dtabZ5Uf7V4kdiSpeHopEzyM&libraries=places">
     </script>
   </body>
 </html>

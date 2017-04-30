@@ -1,4 +1,26 @@
 $(document).ready(function(){
+
+
+    //cities request
+    var cityReq = new XMLHttpRequest();
+    var cities;
+    cityReq.onreadystatechange = function(){
+        if(cityReq.readyState===XMLHttpRequest.DONE){
+            if(cityReq.status==200){
+                cities = JSON.parse(cityReq.responseText);
+                console.log(cities);
+                for(i=0;i<4;i++){
+                    $('#cityList').append('<span style="margin:10px;" class="cl" id="?'+cities[i].lat+'&'+cities[i].lng+'">'+cities[i].name+'</span>');
+                }
+            }
+        }
+    }
+    cityReq.open('GET','http://localhost:8082/get-cities/',true);
+    cityReq.send(null);
+
+
+
+
     //returns current location of flight
     function getLocation(callback) {
         var xhr = new XMLHttpRequest();
@@ -47,6 +69,27 @@ $(document).ready(function(){
         }, callback);
         searchCall();
     }
+
+    function weather(location, weatherCall){
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState===XMLHttpRequest.DONE){
+                if(xhr.status==200){
+                    var data = JSON.parse(xhr.responseText);
+                    var parsed = {name: data.location.region+", "+data.location.country,
+                                    temp: data.current.temp_c, humidity: data.current.humidity, 
+                                    wind: data.current.wind_kph};
+                                   
+                    weatherCall(parsed);
+                }else{
+                    console.log(xhr.responseText);
+                }
+            }
+        }
+        xhr.open("GET","http://api.apixu.com/v1/current.json?key=c00fe1113f754aef94304921173004&q="+location.lat+","+location.lng);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send();
+    }
     //calls create marker
     function callback(results, status) {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -85,10 +128,14 @@ $(document).ready(function(){
         });
     });
     //onclick handler
-    $('#city').click(function(){
-        //dummy data
+    $('#cityList').on('click', function(e){
         flag = true;
-        end_lat = 22.652043; end_lng = 88.44633;
+        v = e.target.id.substring(1);
+        console.log(v);
+        end_lat = Number(v.substring(0, v.indexOf("&")));
+        end_lng = Number(v.substring(v.indexOf("&")+1));
+        console.log(end_lat); console.log(end_lng);
+        //end_lat = 22.652043; end_lng = 88.44633;
         start_lat = end_lat; start_lng = end_lng;
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function(){
@@ -151,6 +198,10 @@ $(document).ready(function(){
                         search(data2, function(){
                             map.setCenter(data2);
                             planeMarker.setPosition(data2);
+                            weather(data2, function(info){
+                                
+                                $('#info').html('Region: '+info.name+'<br>'+'Temperature: '+info.temp+' C<br>Humidity: '+info.humidity+'%<br>Wind: '+info.wind+' kph');
+                            });
                         });
                     });
                 }
